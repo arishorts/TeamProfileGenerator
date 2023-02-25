@@ -3,10 +3,8 @@ const fs = require("fs");
 const Manager = require("./lib/manager");
 const Engineer = require("./lib/engineer");
 const Intern = require("./lib/intern");
-const Team = require("./lib/team");
 
 team = [];
-//let team = new Team();
 
 questions = [
   {
