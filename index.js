@@ -48,6 +48,7 @@ function inquireNewTeam() {
         answers.officeNumber
       );
       team.push(manager);
+      console.log(team);
       questions.pop();
       addAnother();
     });
@@ -69,6 +70,7 @@ function inquireEngineer() {
         answers.github
       );
       team.push(engineer);
+      console.log(team);
       questions.pop();
       addAnother();
     });
@@ -90,6 +92,7 @@ function inquireIntern() {
         answers.school
       );
       team.push(intern);
+      console.log(team);
       questions.pop();
       addAnother();
     });
@@ -118,7 +121,7 @@ function addAnother() {
             else if (answers.addMember === "intern") inquireIntern();
           });
       } else {
-        const html = generateHTML();
+        const html = generateHTML(team);
         writeToFile(html);
         return;
       }
@@ -126,19 +129,66 @@ function addAnother() {
 }
 
 //  HTML generated with all team members added as cards. Use template literal to create the skeleton.
-function generateHTML() {
-  console.log(team);
+function generateHTML(team) {
+  const cards = team.map(
+    (member, i) => `
+  <div class="col-lg-4 col-md-6 col-sm-12">
+    <div class="team-member-card">
+      <h2>${member.getName()}</h2>
+      <h2>${member.getRole()}</h2>
+      <ul>
+        <li>ID: ${member.getId()}</li>
+        <li>Email: ${member.getEmail()}</li>
+        ${
+          member.getRole() === "Manager"
+            ? `<li>Office Number: ${member.getOfficeNumber()}</li>`
+            : ""
+        }
+        ${
+          member.getRole() === "Engineer"
+            ? `<li>GitHub: ${member.getGithub()}</li>`
+            : ""
+        }
+        ${
+          member.getRole() === "Intern"
+            ? `<li>School: ${member.getSchool()}</li>`
+            : ""
+        }
+      </ul>
+    </div>
+  </div>
+`
+  );
+
   return `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
-  <title>Document</title>
-</head>
-<body>
-</body>
-</html>`;
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <title>Team Members</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+      <link rel="stylesheet" href="./styles.css" />
+    </head>
+    <body>
+      <header>
+        <h1>Our Team Members</h1>
+      </header>
+      <main>
+        <div class="container">
+          <div class="row">
+            ${cards.join("")}
+          </div>
+        </div>
+      </main>
+      <footer>
+        <p>&copy; 2023 Our Company. All rights reserved.</p>
+      </footer>
+      <script
+      src="https://code.jquery.com/jquery-3.6.3.min.js"
+      integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+      crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    </body>
+  </html>`;
 }
 
 //write the html to a file
