@@ -38,7 +38,7 @@ describe("Employee", () => {
         id: "1",
         email: "johndoe@gmail.com",
       });
-      expect(employee.getRole()).toEqual("employee");
+      expect(employee.getRole()).toEqual("Employee");
     });
   });
 });

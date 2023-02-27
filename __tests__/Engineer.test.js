@@ -1,11 +1,4 @@
-//const Employee = require("../lib/employee");
 const Engineer = require("../lib/engineer");
-//jest.mock("../lib/employee");
-
-// it("We can check if the engineer called the employee class constructor", () => {
-//   const engineer = new Engineer();
-//   expect(Employee).toHaveBeenCalledTimes(1);
-// });
 
 describe("Employee", () => {
   test("defines getName()", () => {
