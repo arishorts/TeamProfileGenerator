@@ -192,7 +192,7 @@ function generateHTML(team) {
       <h2>${member.getRole()}</h2>
       <ul>
         <li>ID: ${member.getId()}</li>
-        <li>Email: ${member.getEmail()}</li>
+        <li>Email: <a href="mailto:${member.getEmail()}">Send Email</a></li>
         ${
           member.getRole() === "Manager"
             ? `<li>Office Number: ${member.getOfficeNumber()}</li>`
@@ -200,7 +200,7 @@ function generateHTML(team) {
         }
         ${
           member.getRole() === "Engineer"
-            ? `<li>GitHub: ${member.getGithub()}</li>`
+            ? `<li>GitHub: <a href="https://github.com/${member.getGithub()}/">Github Link</a></li>`
             : ""
         }
         ${
