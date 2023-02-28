@@ -2,23 +2,7 @@
 
 ## Description:
 
-GIVEN a command-line application that accepts user input<br><br>
-WHEN I am prompted for my team members and their information<br>
-THEN an HTML file is generated that displays a nicely formatted team roster based on user input<br><br>
-WHEN I click on an email address in the HTML<br>
-THEN my default email program opens and populates the TO field of the email with the address<br><br>
-WHEN I click on the GitHub username<br>
-THEN that GitHub profile opens in a new tab<br><br>
-WHEN I start the application<br>
-THEN I am prompted to enter the team manager’s name, employee ID, email address, and office number<br><br>
-WHEN I enter the team manager’s name, employee ID, email address, and office number<br>
-THEN I am presented with a menu with the option to add an engineer or an intern or to finish building my team<br><br>
-WHEN I select the engineer option<br>
-THEN I am prompted to enter the engineer’s name, ID, email, and GitHub username, and I am taken back to the menu<br><br>
-WHEN I select the intern option<br>
-THEN I am prompted to enter the intern’s name, ID, email, and school, and I am taken back to the menu<br><br>
-WHEN I decide to finish building my team<br>
-THEN I exit the application, and the HTML is generated
+This command-line application allows users to easily generate a team roster by inputting information about their team members. The code validates user input using the Joi module to ensure that the input is valid and formatted correctly. Once the information is provided, an HTML file is automatically generated, displaying the team roster in a nicely formatted way. By clicking on an email address, users can open their default email program and populate the TO field with the email address. Clicking on a GitHub username opens the respective profile in a new tab.
 
 ## User Story
 
@@ -44,11 +28,18 @@ SO THAT I have quick access to their emails and GitHub profiles
 
 ## Usage:
 
-&nbsp; The website can be found at: https://arishorts.github.io/TeamProfileGenerator/
+&nbsp; The repo can be found at: https://github.com/arishorts/TeamProfileGenerator <br>
+&nbsp; A demo can be found at: https://youtu.be/AnY1dJIekd0
+
+The application prompts users to enter their team manager's name, employee ID, email address, and office number. After providing this information, a menu is presented with the option to add an engineer or an intern, or to finish building the team. Selecting the engineer option prompts the user to input the engineer's name, ID, email, and GitHub username, and then takes them back to the menu. Similarly, selecting the intern option prompts the user to enter the intern's name, ID, email, and school, before returning them to the menu.
+
+Once the user decides to finish building the team, the application exits and generates the HTML file with the complete team roster. Overall, this application streamlines the process of creating a team roster, making it simple and intuitive.
+
+![alt text](./assets/images/demo.JPG)
 
 ## Tests:
 
-&nbsp; none
+&nbsp; Testing implemented with Jest
 
 ## Badges:
 

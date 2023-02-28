@@ -3,6 +3,30 @@ const fs = require("fs");
 const Manager = require("./lib/manager");
 const Engineer = require("./lib/engineer");
 const Intern = require("./lib/intern");
+const Joi = require("joi");
+
+const schema = Joi.object({
+  name: Joi.string().regex(/^[a-zA-Z\s]+$/),
+
+  id: Joi.string()
+    .pattern(/^[0-9]+$/)
+    .min(1)
+    .max(30),
+
+  email: Joi.string().email({
+    minDomainSegments: 2,
+    tlds: { allow: ["com", "net"] },
+  }),
+
+  officeNumber: Joi.string()
+    .pattern(/^[0-9]+$/)
+    .min(1)
+    .max(10),
+
+  github: Joi.string().min(1).max(30),
+
+  school: Joi.string().regex(/^[a-zA-Z\s]+$/),
+});
 
 team = [];
 
@@ -11,16 +35,19 @@ questions = [
     type: "input",
     name: "name",
     message: "name?",
+    validate: (input) => validateQuestion("name", input),
   },
   {
     type: "input",
     name: "id",
     message: "ID?",
+    validate: (input) => validateQuestion("id", input),
   },
   {
     type: "input",
     name: "email",
     message: "email?",
+    validate: (input) => validateQuestion("email", input),
   },
 ];
 
@@ -30,6 +57,32 @@ function init() {
   // When finished, exit the prompt
 }
 
+function validateQuestion(field, input) {
+  const obj = {}; // create an empty object
+  obj[field] = input;
+  const { error } = schema.validate(obj);
+  if (error) {
+    switch (field) {
+      case "id":
+        return "Please enter a valid ID containing only numbers.";
+      case "name":
+        return "Please enter a valid name containing only letters.";
+      case "email":
+        return "Please enter a valid email address.";
+      case "officeNumber":
+        return "Please enter a valid officeNumber containing only numbers.";
+      case "github":
+        return "Please enter a valid github.";
+      case "school":
+        return "Please enter a valid school.";
+      default:
+        return "Please enter a valid value.";
+    }
+  } else {
+    return true;
+  }
+}
+
 //generate team manager Inquirer prompts that the user will input: team manager’s name, employee ID, email address, and office number. After team manager prompt THEN I am presented with a menu with the option to add an engineer or an intern or to finish building my team
 function inquireNewTeam() {
   console.log("Adding new manager");
@@ -37,6 +90,7 @@ function inquireNewTeam() {
     type: "input",
     name: "officeNumber",
     message: "What is the manager's office number?",
+    validate: (input) => validateQuestion("officeNumber", input),
   }),
     inquirer.prompt(questions).then((answers) => {
       let manager = new Manager(
@@ -46,7 +100,7 @@ function inquireNewTeam() {
         answers.officeNumber
       );
       team.push(manager);
-      console.log(team);
+      //console.log(team);
       questions.pop();
       addAnother();
     });
@@ -59,6 +113,7 @@ function inquireEngineer() {
     type: "input",
     name: "github",
     message: "What is the engineer's github profile?",
+    validate: (input) => validateQuestion("github", input),
   }),
     inquirer.prompt(questions).then((answers) => {
       let engineer = new Engineer(
@@ -68,7 +123,7 @@ function inquireEngineer() {
         answers.github
       );
       team.push(engineer);
-      console.log(team);
+      //console.log(team);
       questions.pop();
       addAnother();
     });
@@ -81,6 +136,7 @@ function inquireIntern() {
     type: "input",
     name: "school",
     message: "What is the intern's school?",
+    validate: (input) => validateQuestion("school", input),
   }),
     inquirer.prompt(questions).then((answers) => {
       let intern = new Intern(
@@ -90,7 +146,7 @@ function inquireIntern() {
         answers.school
       );
       team.push(intern);
-      console.log(team);
+      //console.log(team);
       questions.pop();
       addAnother();
     });

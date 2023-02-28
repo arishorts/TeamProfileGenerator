@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/arishorts/TeamProfileGenerator#readme",
   "dependencies": {
-    "inquirer": "^8.2.4"
+    "inquirer": "^8.2.4",
+    "joi": "^17.8.3"
   },
   "devDependencies": {
     "jest": "^29.4.3"
